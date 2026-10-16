@@ -45,7 +45,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = '' })
             >
               {index > 0 && (
                 <svg
-                  className="w-4 h-4 mx-2 text-gray-400"
+                  className="w-4 h-4 mx-2 text-gray-600 dark:text-gray-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   aria-hidden="true"
@@ -60,7 +60,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = '' })
 
               {isCurrent ? (
                 <span
-                  className="text-gray-500 dark:text-gray-400 font-medium"
+                  className="text-gray-600 dark:text-gray-400 font-medium"
                   aria-current="page"
                   itemProp="name"
                 >
@@ -141,7 +141,7 @@ export const CompactBreadcrumb: React.FC<BreadcrumbProps> = ({ items, className 
             </svg>
             {parentItem.label}
           </Link>
-          <span className="mx-2 text-gray-400">/</span>
+          <span className="mx-2 text-gray-600 dark:text-gray-400">/</span>
         </>
       )}
       <span className="text-gray-700 dark:text-gray-300 font-medium" aria-current="page">
