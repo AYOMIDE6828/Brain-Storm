@@ -38,6 +38,8 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
+    // Debug output must not ship: only console.error (or the project logger) is allowed.
+    'no-console': ['error', { allow: ['error'] }],
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
@@ -63,4 +65,11 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      // Test files may log while diagnosing failures.
+      files: ['src/__tests__/**/*.{ts,tsx}'],
+      rules: { 'no-console': 'off' },
+    },
+  ],
 };
