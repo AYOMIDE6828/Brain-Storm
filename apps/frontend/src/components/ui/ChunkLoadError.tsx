@@ -23,7 +23,7 @@ export function ChunkLoadError() {
       <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
         New version available
       </h2>
-      <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md">
+      <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
         A new version of the app was deployed. Please refresh to get the latest update.
       </p>
       <Button onClick={handleRefresh} disabled={isRefreshing}>
