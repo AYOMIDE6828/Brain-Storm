@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useAuthStore } from '@/store/auth.store';
 import { createPortal } from 'react-dom';
+
+import { useAuth } from '@/hooks/useAuth';
 
 interface TourStep {
   target: string; // CSS selector
@@ -38,8 +39,9 @@ interface TourProps {
   forceStart?: boolean;
 }
 
+// eslint-disable-next-line max-lines-per-function -- guided tour steps; split in a follow-up
 export function Tour({ onComplete, onSkip, forceStart = false }: TourProps) {
-  const { user } = useAuthStore();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
