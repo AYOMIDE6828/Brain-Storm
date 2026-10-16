@@ -59,7 +59,7 @@ exports[`BadgeDisplay — snapshots > renders grid variant 1`] = `
         First Steps
       </p>
       <time
-        class="text-[10px] text-gray-400"
+        class="text-[10px] text-gray-600 dark:text-gray-400"
         datetime="2024-01-15"
       >
         Jan 15, 2024
@@ -104,7 +104,7 @@ exports[`BadgeDisplay — snapshots > renders grid variant 1`] = `
         Community Star
       </p>
       <time
-        class="text-[10px] text-gray-400"
+        class="text-[10px] text-gray-600 dark:text-gray-400"
         datetime="2024-02-01"
       >
         Feb 1, 2024
@@ -116,7 +116,7 @@ exports[`BadgeDisplay — snapshots > renders grid variant 1`] = `
 
 exports[`BadgeDisplay — snapshots > renders grid variant empty 1`] = `
 <p
-  class="text-sm text-gray-500 py-4 text-center "
+  class="text-sm text-gray-600 py-4 text-center "
 >
   No badges yet
 </p>
@@ -287,7 +287,7 @@ exports[`Breadcrumb — snapshots > renders custom items 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="w-4 h-4 mx-2 text-gray-400"
+        class="w-4 h-4 mx-2 text-gray-600 dark:text-gray-400"
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -321,7 +321,7 @@ exports[`Breadcrumb — snapshots > renders custom items 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="w-4 h-4 mx-2 text-gray-400"
+        class="w-4 h-4 mx-2 text-gray-600 dark:text-gray-400"
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -333,7 +333,7 @@ exports[`Breadcrumb — snapshots > renders custom items 1`] = `
       </svg>
       <span
         aria-current="page"
-        class="text-gray-500 dark:text-gray-400 font-medium"
+        class="text-gray-600 dark:text-gray-400 font-medium"
         itemprop="name"
       >
         Stellar 101
@@ -389,7 +389,7 @@ exports[`Breadcrumb — snapshots > renders with two items 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="w-4 h-4 mx-2 text-gray-400"
+        class="w-4 h-4 mx-2 text-gray-600 dark:text-gray-400"
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -401,7 +401,7 @@ exports[`Breadcrumb — snapshots > renders with two items 1`] = `
       </svg>
       <span
         aria-current="page"
-        class="text-gray-500 dark:text-gray-400 font-medium"
+        class="text-gray-600 dark:text-gray-400 font-medium"
         itemprop="name"
       >
         Profile
@@ -575,7 +575,7 @@ exports[`DataGrid — snapshots > renders empty state 1`] = `
             Course Title
             <span
               aria-hidden="true"
-              class="text-xs text-gray-400"
+              class="text-xs text-gray-600 dark:text-gray-400"
             >
               ⇅
             </span>
@@ -593,7 +593,7 @@ exports[`DataGrid — snapshots > renders empty state 1`] = `
             Enrolled
             <span
               aria-hidden="true"
-              class="text-xs text-gray-400"
+              class="text-xs text-gray-600 dark:text-gray-400"
             >
               ⇅
             </span>
@@ -606,7 +606,7 @@ exports[`DataGrid — snapshots > renders empty state 1`] = `
     >
       <tr>
         <td
-          class="px-4 py-10 text-center text-gray-500 dark:text-gray-400"
+          class="px-4 py-10 text-center text-gray-600 dark:text-gray-400"
           colspan="3"
         >
           No courses found
@@ -652,7 +652,7 @@ exports[`DataGrid — snapshots > renders loading state 1`] = `
             Course Title
             <span
               aria-hidden="true"
-              class="text-xs text-gray-400"
+              class="text-xs text-gray-600 dark:text-gray-400"
             >
               ⇅
             </span>
@@ -670,7 +670,7 @@ exports[`DataGrid — snapshots > renders loading state 1`] = `
             Enrolled
             <span
               aria-hidden="true"
-              class="text-xs text-gray-400"
+              class="text-xs text-gray-600 dark:text-gray-400"
             >
               ⇅
             </span>
@@ -847,7 +847,7 @@ exports[`DataGrid — snapshots > renders with data 1`] = `
             Course Title
             <span
               aria-hidden="true"
-              class="text-xs text-gray-400"
+              class="text-xs text-gray-600 dark:text-gray-400"
             >
               ⇅
             </span>
@@ -865,7 +865,7 @@ exports[`DataGrid — snapshots > renders with data 1`] = `
             Enrolled
             <span
               aria-hidden="true"
-              class="text-xs text-gray-400"
+              class="text-xs text-gray-600 dark:text-gray-400"
             >
               ⇅
             </span>
@@ -939,7 +939,7 @@ exports[`DataGrid — snapshots > renders with data 1`] = `
     class="flex items-center justify-between px-4 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
   >
     <p
-      class="text-xs text-gray-500 dark:text-gray-400"
+      class="text-xs text-gray-600 dark:text-gray-400"
     >
       Showing 1–3 of 3
     </p>
@@ -954,7 +954,7 @@ exports[`DataGrid — snapshots > renders with data 1`] = `
         Previous
       </button>
       <span
-        class="text-xs text-gray-500 dark:text-gray-400"
+        class="text-xs text-gray-600 dark:text-gray-400"
       >
         Page 
         1
@@ -1003,12 +1003,12 @@ exports[`ErrorBoundary — snapshots > renders default fallback on error 1`] = `
     Something went wrong
   </h2>
   <p
-    class="text-gray-500 dark:text-gray-400 mb-4 max-w-md"
+    class="text-gray-600 dark:text-gray-400 mb-4 max-w-md"
   >
     An unexpected error occurred. Please try again or report the issue.
   </p>
   <p
-    class="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 rounded px-3 py-2 mb-4 max-w-md break-all font-mono"
+    class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded px-3 py-2 mb-4 max-w-md break-all font-mono"
   >
     Test error
   </p>
