@@ -10,7 +10,7 @@ All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md
 
 1. **Fork the repository** on GitHub.
 2. **Clone your fork** locally: `git clone https://github.com/<your-username>/Brain-Storm.git`
-3. **Follow the [Developer Setup Guide](docs/development-setup.md)** to set up your environment.
+3. **Follow the [Developer Setup Guide](docs/contributing/setup.md)** to set up your environment.
 4. **Create a new branch** from `main` for your change (see naming conventions below).
 5. Make your changes, add tests, and open a pull request.
 
@@ -207,7 +207,7 @@ cd apps/backend && npm test
 npm run lint
 ```
 
-See [docs/development-setup.md](docs/development-setup.md) for the full setup guide.
+See [docs/contributing/setup.md](docs/contributing/setup.md) for the full setup guide.
 
 ## Pre-commit Hooks (Husky)
 
