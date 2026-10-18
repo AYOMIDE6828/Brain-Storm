@@ -189,6 +189,7 @@ Before submitting your PR, verify:
 - [ ] Commits follow Conventional Commits format with an allowed scope.
 - [ ] Documentation is updated if behaviour changes.
 - [ ] No secrets or PII are committed.
+- [ ] No commented-out code is left behind; git history keeps the old version.
 - [ ] PR description clearly explains the _what_ and _why_.
 
 ## Development Workflow
