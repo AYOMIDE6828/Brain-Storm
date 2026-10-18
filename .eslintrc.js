@@ -8,8 +8,22 @@ module.exports = {
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'simple-import-sort', 'import'],
+  plugins: [
+    '@typescript-eslint',
+    'react',
+    'react-hooks',
+    'simple-import-sort',
+    'import',
+    'filenames',
+  ],
   rules: {
+    // Enforce kebab-case file naming for source files.
+    // Allows optional .test/.spec/.d suffixes and index files.
+    'filenames/match-regex': [
+      'error',
+      '^[a-z0-9]+(-[a-z0-9]+)*(?:\\.(?:test|spec|d))?$',
+      true,
+    ],
     // TypeScript strict rules
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
