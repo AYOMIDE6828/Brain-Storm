@@ -16,7 +16,13 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js', 'dist', 'coverage'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'dist',
+    'coverage',
+    'node_modules',
+    '*.d.ts',
+  ],
   settings: {
     'import/resolver': {
       typescript: { project: './tsconfig.json' },
@@ -70,6 +76,16 @@ module.exports = {
       files: ['src/secrets/**/*.ts', 'src/config/**/*.ts'],
       rules: {
         'no-restricted-syntax': 'off',
+      },
+    },
+    {
+      files: ['**/*.spec.ts', '**/*.test.ts', 'test/**/*.ts'],
+      env: {
+        jest: true,
+      },
+      rules: {
+        'max-lines-per-function': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
       },
     },
   ],

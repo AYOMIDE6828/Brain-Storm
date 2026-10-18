@@ -23,7 +23,15 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  ignorePatterns: ['.eslintrc.js', '.next', 'out', 'dist', 'coverage'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    '.next',
+    'out',
+    'dist',
+    'coverage',
+    'node_modules',
+    'next-env.d.ts',
+  ],
   settings: {
     react: {
       version: 'detect',
@@ -69,6 +77,12 @@ module.exports = {
     {
       // Test files may log while diagnosing failures.
       files: ['src/__tests__/**/*.{ts,tsx}'],
+      rules: { 'no-console': 'off' },
+    },
+    {
+      // Config files are CommonJS and run outside the app bundle.
+      files: ['*.config.{js,cjs,mjs}', '.eslintrc.js'],
+      env: { node: true, browser: false },
       rules: { 'no-console': 'off' },
     },
   ],

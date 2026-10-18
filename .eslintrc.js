@@ -48,6 +48,18 @@ module.exports = {
     node: true,
     es2020: true,
   },
+  // Build output and generated files should never be linted by lint-staged
+  ignorePatterns: [
+    'node_modules/',
+    'dist/',
+    'build/',
+    'coverage/',
+    'lib/',
+    'out/',
+    '.next/',
+    '*.min.js',
+    '*.d.ts',
+  ],
   overrides: [
     {
       files: ['**/*.test.ts', '**/*.spec.ts', '**/__tests__/**/*.ts'],
