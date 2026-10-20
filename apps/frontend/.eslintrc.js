@@ -7,7 +7,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'react', 'react-hooks', 'import'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'react', 'react-hooks', 'import', 'filenames'],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
@@ -62,6 +62,12 @@ module.exports = {
     ],
     'import/no-cycle': ['warn', { maxDepth: 3, ignoreExternal: true }],
     'import/no-duplicates': 'error',
+    // File names must be kebab-case; suffixes like .d.ts, .spec.ts and .test.ts are allowed.
+    'filenames/match-regex': [
+      'error',
+      '^[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.(?:d|spec|test))?$',
+      true,
+    ],
     complexity: ['error', { max: 15 }],
     'max-lines-per-function': [
       'error',
@@ -80,10 +86,14 @@ module.exports = {
       rules: { 'no-console': 'off' },
     },
     {
-      // Config files are CommonJS and run outside the app bundle.
-      files: ['*.config.{js,cjs,mjs}', '.eslintrc.js'],
-      env: { node: true, browser: false },
-      rules: { 'no-console': 'off' },
+      // Next.js special files and config files keep their framework-mandated names.
+      files: [
+        'src/pages/**/*.{ts,tsx}',
+        'src/app/**/*.{ts,tsx}',
+        '*.config.{js,ts}',
+        'next-env.d.ts',
+      ],
+      rules: { 'filenames/match-regex': 'off' },
     },
   ],
 };

@@ -50,24 +50,6 @@ export class UsersService {
     return this.usersRepository.findAll(options);
   }
 
-  async banUser(id: string, isBanned: boolean): Promise<User> {
-    const user = await this.findById(id);
-    if (!user) throw new NotFoundException('User not found');
-    return this.usersRepository.save({ ...user, isBanned });
-  }
-
-  async changeRole(id: string, role: string): Promise<User> {
-    const user = await this.findById(id);
-    if (!user) throw new NotFoundException('User not found');
-    return this.usersRepository.save({ ...user, role });
-  }
-
-  async softDelete(id: string): Promise<User> {
-    const user = await this.findById(id);
-    if (!user) throw new NotFoundException('User not found');
-    return this.usersRepository.save({ ...user, deletedAt: new Date() });
-  }
-
   findByReferralCode(code: string): Promise<User | null> {
     return this.usersRepository.findByReferralCode(code);
   }
