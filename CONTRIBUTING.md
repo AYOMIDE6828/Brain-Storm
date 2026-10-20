@@ -189,6 +189,7 @@ Before submitting your PR, verify:
 - [ ] Commits follow Conventional Commits format with an allowed scope.
 - [ ] Documentation is updated if behaviour changes.
 - [ ] No secrets or PII are committed.
+- [ ] No commented-out code is left behind; git history keeps the old version.
 - [ ] PR description clearly explains the _what_ and _why_.
 
 ## Development Workflow
@@ -411,3 +412,7 @@ The following scripts were used once to migrate the codebase and have since been
 | `fix-ts2564-all.mjs` | Broader pass of the same TS2564 fix across all DTO and entity files | Committed prior to removal |
 
 All fixes from these scripts are already committed to the codebase. The scripts themselves were removed once verified. If you need to perform a similar mass codebase transformation in the future, create a new migration script under `scripts/` (not the repo root), run it, commit the result, and remove the script in the same PR.
+
+## Backend dependency check
+
+Checked against backend source. `@elastic/elasticsearch` is used by `@nestjs/elasticsearch`, and `@nestjs/platform-socket.io` provides the socket.io adapter for the notifications gateway. Both are used indirectly, so neither is removed.

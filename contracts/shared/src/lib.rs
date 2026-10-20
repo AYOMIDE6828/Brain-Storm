@@ -9,6 +9,7 @@ pub mod access;
 pub mod admin;
 pub mod access;
 pub mod constants;
+pub mod error;
 pub mod errors;
 pub mod events;
 pub mod math;
