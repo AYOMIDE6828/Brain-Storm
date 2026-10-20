@@ -16,7 +16,13 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js', 'dist', 'coverage'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'dist',
+    'coverage',
+    'node_modules',
+    '*.d.ts',
+  ],
   settings: {
     'import/resolver': {
       typescript: { project: './tsconfig.json' },

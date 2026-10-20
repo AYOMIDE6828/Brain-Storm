@@ -23,7 +23,15 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  ignorePatterns: ['.eslintrc.js', '.next', 'out', 'dist', 'coverage'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    '.next',
+    'out',
+    'dist',
+    'coverage',
+    'node_modules',
+    'next-env.d.ts',
+  ],
   settings: {
     react: {
       version: 'detect',
