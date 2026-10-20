@@ -4,7 +4,7 @@ module.exports = {
     project: undefined,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'import'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'import', 'filenames'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
@@ -45,6 +45,11 @@ module.exports = {
     ],
     'import/no-cycle': ['warn', { maxDepth: 3, ignoreExternal: true }],
     'import/no-duplicates': 'error',
+    'filenames/match-regex': [
+      'error',
+      '^[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.(?:d|spec|test))?$',
+      true,
+    ],
     complexity: ['error', { max: 15 }],
     'max-lines-per-function': [
       'error',
@@ -70,6 +75,12 @@ module.exports = {
       files: ['src/secrets/**/*.ts', 'src/config/**/*.ts'],
       rules: {
         'no-restricted-syntax': 'off',
+      },
+    },
+    {
+      files: ['**/index.ts'],
+      rules: {
+        'filenames/match-regex': 'off',
       },
     },
   ],
