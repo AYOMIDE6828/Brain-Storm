@@ -170,6 +170,7 @@ name = "brain-storm-integration"
 version = "0.1.0"
 dependencies = [
  "brain-storm-analytics",
+ "brain-storm-grants",
  "brain-storm-shared",
  "brain-storm-token",
  "soroban-sdk",
@@ -871,6 +872,7 @@ name = "liquidity_pool"
 version = "0.1.0"
 dependencies = [
  "brain-storm-shared",
+ "proptest",
  "soroban-sdk",
 ]
 
