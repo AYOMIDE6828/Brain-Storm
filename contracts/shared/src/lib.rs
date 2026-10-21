@@ -20,6 +20,9 @@ pub mod reentrancy;
 pub mod upgrade;
 pub mod validation;
 
+#[cfg(any(test, feature = "testutils"))]
+pub mod test_helpers;
+
 // Re-export commonly used items
 pub use constants::{BASIS_POINTS_DENOMINATOR, PRECISION_SCALE_12};
 pub use errors::SharedError;
