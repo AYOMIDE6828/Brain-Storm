@@ -11,6 +11,11 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "test": "vitest run",
+    "test:load": "bash load/run-tests.sh",
+    "test:load:smoke": "bash load/run-tests.sh search-discovery smoke",
+    "test:load:journey": "bash load/run-tests.sh user-journey load",
+    "test:load:marketplace": "bash load/run-tests.sh marketplace load",
+    "test:load:stress": "bash load/run-tests.sh stress-standard stress",
     "audit": "npm audit --workspace=packages/api --audit-level=high"
   },
   "dependencies": {
