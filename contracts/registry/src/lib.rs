@@ -19,7 +19,7 @@ use soroban_sdk::{
 };
 
 use brain_storm_shared::access;
-use brain_storm_shared::pagination::paginate;
+use brain_storm_shared::pagination::{paginate, MAX_PAGE_SIZE};
 use brain_storm_shared::pausable;
 
 // ── Storage keys ──────────────────────────────────────────────────────────────

@@ -4,10 +4,10 @@ use soroban_sdk::{
     Symbol, Vec,
 };
 
-use brain_storm_shared::access;
-
-const TTL_THRESHOLD: u32 = 100;
-const TTL_EXTEND_TO: u32 = 500;
+use brain_storm_shared::{access, validation};
+use brain_storm_shared::constants::{
+    STORAGE_TTL_EXTEND_TO as TTL_EXTEND_TO, STORAGE_TTL_THRESHOLD as TTL_THRESHOLD,
+};
 
 // =============================================================================
 // Storage keys
@@ -105,7 +105,7 @@ impl GrantsContract {
         milestone_count: u32,
     ) -> u64 {
         applicant.require_auth();
-        assert!(total_amount > 0, "Amount must be positive");
+        validation::require_positive_amount(total_amount);
         assert!(milestone_count > 0, "Must have at least one milestone");
 
         let id: u64 = env.storage().instance().get(&DataKey::NextGrantId).unwrap();
@@ -224,7 +224,7 @@ impl GrantsContract {
             .expect("Grant not found");
 
         assert!(milestone_idx < grant.milestone_count, "Invalid milestone index");
-        assert!(amount > 0, "Amount must be positive");
+        validation::require_positive_amount(amount);
 
         let milestone = MilestoneRecord {
             grant_id,

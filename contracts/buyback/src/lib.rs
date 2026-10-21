@@ -3,7 +3,7 @@ use soroban_sdk::{
     contract, contractimpl, contracttype, symbol_short, Address, BytesN, Env, Symbol, Vec,
 };
 
-use brain_storm_shared::{access, math};
+use brain_storm_shared::{access, oracle, validation};
 
 // =============================================================================
 // Storage keys
@@ -258,7 +258,7 @@ impl BuybackContract {
 
     pub fn add_to_reserve(env: Env, from: Address, amount: i128) {
         from.require_auth();
-        assert!(amount > 0, "Amount must be positive");
+        validation::require_positive_amount(amount);
 
         let mut reserve_balance: i128 = env
             .storage()
@@ -381,19 +381,13 @@ impl BuybackContract {
     }
 
     fn get_bst_price(env: &Env) -> i128 {
-        let oracle_contract: Address = env
-            .storage()
-            .instance()
-            .get(&DataKey::OracleContract)
-            .unwrap();
         // Simulate an oracle price sample and enforce staleness before use.
-        let price = oracle_mod::oracle::Price {
+        let price = oracle::Price {
             value: 2000,
             timestamp: env.ledger().timestamp(),
             source: soroban_sdk::String::from_str(env, "feed"),
         };
-        oracle_mod::oracle::validate_oracle_price(&price, env.ledger().timestamp(), 100)
-            .unwrap_or(2000)
+        oracle::validate_oracle_price(&price, env.ledger().timestamp(), 100).unwrap_or(2000)
     }
 
     fn execute_buyback_via_dex(env: Env, xlm_amount: i128, bst_price: i128, trigger_reason: Symbol) {

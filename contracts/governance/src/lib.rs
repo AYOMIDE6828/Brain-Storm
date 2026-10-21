@@ -4,7 +4,8 @@ use soroban_sdk::{
 };
 
 use brain_storm_shared::access;
-use brain_storm_shared::constants::{MIN_TEMP_ENTRY_TTL, MIN_PERSISTENT_ENTRY_TTL, MAX_ENTRY_TTL};
+#[cfg(test)]
+use brain_storm_shared::constants::{MAX_ENTRY_TTL, MIN_PERSISTENT_ENTRY_TTL, MIN_TEMP_ENTRY_TTL};
 
 pub mod voting;
 

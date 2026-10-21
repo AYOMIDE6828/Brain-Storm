@@ -4,7 +4,7 @@
 extern crate std;
 
 use soroban_sdk::{
-    contract, contractimpl, contracttype, symbol_short, Address, Bytes, BytesN, Env, String, Symbol,
+    contract, contractimpl, contracttype, symbol_short, Address, Bytes, Env, String, Symbol,
 };
 use brain_storm_shared::access;
 
@@ -69,6 +69,25 @@ pub struct MetadataHistoryEntry {
     pub recorded_at: u64,
 }
 
+/// Input bundle for `issue_with_nft`. Soroban caps contract entry points at
+/// ten parameters; bundling the issuance payload keeps the ABI within that
+/// limit without dropping any field.
+#[contracttype]
+#[derive(Clone)]
+pub struct IssueWithNftParams {
+    pub admin: Address,
+    pub credential_id: u64,
+    pub course_name: String,
+    pub completion_date: u64,
+    pub expiry_timestamp: u64,
+    pub grade: String,
+    pub ipfs_hash: String,
+    pub owner: Address,
+    pub course_id: Symbol,
+    pub instructor: Address,
+    pub royalty_basis: u32,
+}
+
 const STORE: Symbol = symbol_short!("store");
 const UPDATE: Symbol = symbol_short!("update");
 const EXPIRE: Symbol = symbol_short!("expire");
@@ -107,22 +126,21 @@ impl CredentialMetadataContract {
     ///
     /// # Returns
     /// The minted NFT ID.
-    #[allow(clippy::too_many_arguments)]
-    pub fn issue_with_nft(
-        env: Env,
-        admin: Address,
-        credential_id: u64,
-        course_name: String,
-        completion_date: u64,
-        expiry_timestamp: u64,
-        grade: String,
-        ipfs_hash: String,
-        owner: Address,
-        course_id: soroban_sdk::Symbol,
-        instructor: Address,
-        royalty_basis: u32,
+    pub fn issue_with_nft(env: Env, params: IssueWithNftParams) -> u32 {
+        let IssueWithNftParams {
+            admin,
+            credential_id,
+            course_name,
+            completion_date,
+            expiry_timestamp,
+            grade,
+            ipfs_hash,
+            owner,
+            course_id,
+            instructor,
+            royalty_basis,
+        } = params;
 
-    ) -> u32 {
         access::require_admin(&env, &admin, &DataKey::Admin);
 
         // Store credential metadata first
