@@ -1,4 +1,4 @@
-use soroban_sdk::{symbol_short, Env, Symbol};
+use soroban_sdk::{Env, Symbol};
 
 pub fn emit_contract_event<T>(env: &Env, domain: Symbol, action: Symbol, payload: T)
 where
@@ -10,18 +10,26 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use soroban_sdk::{testutils::{Address as _, Events}, Address, Env, FromVal};
+    use soroban_sdk::{
+        symbol_short,
+        testutils::{Address as _, Events},
+        Address, Env, FromVal,
+    };
 
     #[test]
     fn emits_standard_two_topic_payload() {
         let env = Env::default();
         let actor = Address::generate(&env);
-        emit_contract_event(
-            &env,
-            symbol_short!("token"),
-            symbol_short!("mint"),
-            (actor.clone(), 7_u64, 42_i128),
-        );
+        let contract_id = env.register_contract(None, crate::SharedContract);
+
+        env.as_contract(&contract_id, || {
+            emit_contract_event(
+                &env,
+                symbol_short!("token"),
+                symbol_short!("mint"),
+                (actor.clone(), 7_u64, 42_i128),
+            );
+        });
 
         let events = env.events().all();
         assert_eq!(events.len(), 1);
