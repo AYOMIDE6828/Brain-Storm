@@ -14,7 +14,8 @@ brain-storm-shared = { path = "../shared", default-features = false }
 testutils = ["soroban-sdk/testutils"]
 
 [dev-dependencies]
-soroban-sdk = { version = "20.0.0", features = ["testutils"] }
+soroban-sdk = { version = "21.5.0", features = ["testutils"] }
+proptest = "1.4"
 
 [lints]
 workspace = true
