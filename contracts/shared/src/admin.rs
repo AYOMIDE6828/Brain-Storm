@@ -39,10 +39,7 @@ impl AdminManager {
     /// # Panics
     /// If the caller is not the stored admin
     pub fn verify_admin(caller: &Address, stored_admin: &Address) {
-        assert!(
-            caller == stored_admin,
-            "Only admin can perform this action"
-        );
+        assert!(caller == stored_admin, "Only admin can perform this action");
     }
 
     /// Checks if an address is the admin.
@@ -64,16 +61,24 @@ mod tests {
     use soroban_sdk::testutils::Address as AddressTestUtils;
     use soroban_sdk::Env;
 
+    use crate::SharedContract;
+
+    fn contract_context(env: &Env) -> soroban_sdk::Address {
+        env.register_contract(None, SharedContract)
+    }
+
     #[test]
     fn test_require_admin_success() {
         let env = Env::default();
         env.mock_all_auths();
-        
+
         let admin = Address::generate(&env);
         let caller = admin.clone();
-        
-        // Should not panic
-        AdminManager::require_admin(&caller, &admin);
+
+        // `require_auth` is only valid while a contract is executing.
+        env.as_contract(&contract_context(&env), || {
+            AdminManager::require_admin(&caller, &admin);
+        });
     }
 
     #[test]
@@ -81,21 +86,23 @@ mod tests {
     fn test_require_admin_failure() {
         let env = Env::default();
         env.mock_all_auths();
-        
+
         let admin = Address::generate(&env);
         let caller = Address::generate(&env);
-        
-        AdminManager::require_admin(&caller, &admin);
+
+        env.as_contract(&contract_context(&env), || {
+            AdminManager::require_admin(&caller, &admin);
+        });
     }
 
     #[test]
     fn test_verify_admin_success() {
         let env = Env::default();
         env.mock_all_auths();
-        
+
         let admin = Address::generate(&env);
         let caller = admin.clone();
-        
+
         // Should not panic
         AdminManager::verify_admin(&caller, &admin);
     }
@@ -105,10 +112,10 @@ mod tests {
     fn test_verify_admin_failure() {
         let env = Env::default();
         env.mock_all_auths();
-        
+
         let admin = Address::generate(&env);
         let caller = Address::generate(&env);
-        
+
         AdminManager::verify_admin(&caller, &admin);
     }
 
@@ -116,11 +123,11 @@ mod tests {
     fn test_is_admin() {
         let env = Env::default();
         env.mock_all_auths();
-        
+
         let admin = Address::generate(&env);
         let caller = admin.clone();
         let other = Address::generate(&env);
-        
+
         assert!(AdminManager::is_admin(&caller, &admin));
         assert!(!AdminManager::is_admin(&other, &admin));
     }

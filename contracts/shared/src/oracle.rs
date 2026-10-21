@@ -44,8 +44,8 @@ mod tests {
 
     #[test]
     fn freshness_accepts_recent_sample() {
-        assert!(validate_freshness(1_000, 1_100, 60).is_ok());
         assert!(validate_freshness(1_000, 1_060, 60).is_ok());
+        assert!(validate_freshness(1_000, 1_000, 60).is_ok());
     }
 
     #[test]
