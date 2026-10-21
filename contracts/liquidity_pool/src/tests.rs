@@ -424,4 +424,52 @@ mod tests {
         // "amount_a_optimal" branch, which quotes to 5_000 — below amount_a_min.
         client.add_liquidity(&provider, &6_000, &5_000, &5_001, &0);
     }
+
+    // ── Zero / max / empty-pool edge cases (#1329) ──────────────────────────
+
+    #[test]
+    #[should_panic(expected = "Desired amounts must be positive")]
+    fn test_add_liquidity_rejects_zero_b_amount() {
+        let (env, client, _) = setup();
+        let provider = generate_address(&env);
+        client.add_liquidity(&provider, &10_000, &0, &0, &0);
+    }
+
+    #[test]
+    #[should_panic(expected = "Amount in must be positive")]
+    fn test_swap_xlm_zero_amount_panics() {
+        let (env, client, _) = setup();
+        let provider = generate_address(&env);
+        client.add_liquidity(&provider, &100_000, &100_000, &0, &0);
+        let user = generate_address(&env);
+        client.swap(&user, &symbol_short!("xlm"), &0, &0);
+    }
+
+    #[test]
+    #[should_panic(expected = "Insufficient liquidity")]
+    fn test_remove_liquidity_from_empty_pool_panics() {
+        let (env, client, _) = setup();
+        let provider = generate_address(&env);
+        client.remove_liquidity(&provider, &1);
+    }
+
+    #[test]
+    fn test_large_deposit_and_full_withdraw_round_trip() {
+        let (env, client, _) = setup();
+        let provider = generate_address(&env);
+        let large = 1_000_000_000_i128;
+
+        let minted = client.add_liquidity(&provider, &large, &large, &0, &0);
+        assert_eq!(minted, large - 1_000);
+
+        let (amount_a, amount_b) = client.remove_liquidity(&provider, &minted);
+        assert_eq!(amount_a, large);
+        assert_eq!(amount_b, large);
+        assert_eq!(client.get_user_liquidity(&provider), 0);
+
+        let stats = client.get_pool_stats();
+        assert_eq!(stats.reserve_a, 0);
+        assert_eq!(stats.reserve_b, 0);
+        assert_eq!(stats.total_liquidity, 0);
+    }
 }

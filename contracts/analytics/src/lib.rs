@@ -4,15 +4,14 @@ use soroban_sdk::{
 };
 
 use brain_storm_shared::access;
-use brain_storm_shared::constants::{MIN_TEMP_ENTRY_TTL, MIN_PERSISTENT_ENTRY_TTL, MAX_ENTRY_TTL};
+use brain_storm_shared::constants::{
+    STORAGE_TTL_EXTEND_TO as TTL_EXTEND_TO, STORAGE_TTL_THRESHOLD as TTL_THRESHOLD,
+};
+#[cfg(test)]
+use brain_storm_shared::constants::{MAX_ENTRY_TTL, MIN_PERSISTENT_ENTRY_TTL, MIN_TEMP_ENTRY_TTL};
 use brain_storm_shared::pagination::paginate;
 
-// TTL thresholds (in ledgers)
-const TTL_THRESHOLD: u32 = 100;
-const TTL_EXTEND_TO: u32 = 500;
-
 // Progress validation bounds
-const PROGRESS_MIN: u32 = 0;
 const PROGRESS_MAX: u32 = 100;
 const PROGRESS_COMPLETE: u32 = 100;
 

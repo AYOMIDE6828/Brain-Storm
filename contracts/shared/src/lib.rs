@@ -5,6 +5,9 @@
 //! Cross-contract call conventions used across `contracts/`: [docs/contract-interfaces.md § Cross-Contract Call Conventions](../../../docs/contract-interfaces.md#cross-contract-call-conventions).
 //! Rationale for this crate's existence and how it relates to other contracts: [ADR-007](../../../docs/adr/ADR-007-shared-crate-for-common-code.md).
 
+#[cfg(test)]
+extern crate std;
+
 pub mod access;
 pub mod admin;
 pub mod constants;

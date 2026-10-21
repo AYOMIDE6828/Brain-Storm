@@ -1,7 +1,19 @@
 use soroban_sdk::{Env, String};
 
+pub fn is_positive_amount(amount: i128) -> bool {
+    amount > 0
+}
+
 pub fn require_positive_amount(amount: i128) {
-    assert!(amount > 0, "Amount must be positive");
+    assert!(is_positive_amount(amount), "Amount must be positive");
+}
+
+pub fn is_non_negative_amount(amount: i128) -> bool {
+    amount >= 0
+}
+
+pub fn require_non_negative_amount(amount: i128) {
+    assert!(is_non_negative_amount(amount), "Amount must be non-negative");
 }
 
 pub fn require_non_zero_u64(value: u64) {
@@ -118,4 +130,79 @@ pub fn is_valid_grade(grade: &String) -> bool {
 
 pub fn require_valid_grade(grade: &String) {
     assert!(is_valid_grade(grade), "Grade must be 20 characters or less");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use soroban_sdk::{Env, String};
+
+    #[test]
+    fn positive_amount_predicates() {
+        assert!(is_positive_amount(1));
+        assert!(!is_positive_amount(0));
+        assert!(!is_positive_amount(-1));
+        assert!(is_non_negative_amount(0));
+        assert!(!is_non_negative_amount(-1));
+    }
+
+    #[test]
+    fn positive_amount_require_accepts_valid_and_rejects_zero() {
+        require_positive_amount(1);
+        require_non_negative_amount(0);
+
+        let zero = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| require_positive_amount(0)));
+        assert!(zero.is_err());
+    }
+
+    #[test]
+    fn percentage_rules() {
+        require_percentage_valid(0);
+        require_percentage_valid(100);
+        assert!(std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| require_percentage_valid(101))).is_err());
+
+        require_percentages_sum_100(60, 30, 10);
+        assert!(std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| require_percentages_sum_100(60, 30, 11))).is_err());
+    }
+
+    #[test]
+    fn timestamp_must_be_strictly_in_the_future() {
+        let env = Env::default();
+        require_future_timestamp(&env, 1);
+        assert!(std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| require_future_timestamp(&env, 0))).is_err());
+    }
+
+    #[test]
+    fn metadata_string_rules() {
+        let env = Env::default();
+
+        let course = String::from_str(&env, "Math");
+        require_valid_course_name(&course);
+        assert!(!is_valid_course_name(&String::from_str(&env, "AB")));
+
+        let grade = String::from_str(&env, "A");
+        require_valid_grade(&grade);
+
+        let ipfs = String::from_str(
+            &env,
+            "QmYwAPJzv5CZsnAzt8auVZRn1v7QhJ7bL8bYh4mF5J6kP7",
+        );
+        require_valid_ipfs_hash(&ipfs);
+
+        let uri = String::from_str(&env, "ipfs://QmYwAPJzv5C");
+        require_valid_metadata_uri(&uri);
+
+        require_reasonable_metadata_size(&course, 100);
+        assert!(!is_reasonable_metadata_size(&course, 1));
+    }
+
+    #[test]
+    fn non_empty_string_predicate() {
+        let env = Env::default();
+        let empty = String::from_str(&env, "");
+        let value = String::from_str(&env, "x");
+        assert!(!is_non_empty_string(&empty));
+        assert!(is_non_empty_string(&value));
+        assert!(std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| require_non_empty_string(&empty))).is_err());
+    }
 }

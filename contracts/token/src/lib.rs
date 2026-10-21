@@ -3,8 +3,7 @@ extern crate alloc;
 use alloc::format;
 
 use soroban_sdk::{
-    contract, contractimpl, contracttype, contracterror,
-    Address, Env, String, Symbol, Vec,
+    contract, contractimpl, contracttype, contracterror, Address, Env, String, Symbol,
 };
 
 /// Token contract with checked arithmetic operations
