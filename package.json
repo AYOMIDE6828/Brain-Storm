@@ -33,6 +33,7 @@
     "test:mutation:report": "stryker run --reporters html",
     "audit": "npm audit --audit-level=high",
     "audit:all": "npm audit --audit-level=high --workspaces --include-workspace-root",
+    "audit:packages": "npm run audit --workspaces --if-present",
     "lint:staged": "lint-staged",
     "prepare": "husky install"
   },
