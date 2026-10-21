@@ -48,6 +48,29 @@ module.exports = {
     'import/no-duplicates': 'error',
     'import/no-unresolved': 'error',
     'import/no-cycle': 'warn',
+    // Monorepo package boundaries (ADR-012): packages must not import from apps,
+    // application trees must not import each other, and no package may import the
+    // Expo app shell from the reusable mobile SDK.
+    // These are the executable import constraints defined by ADR-012.
+    'import/no-restricted-paths': [
+      'error',
+      {
+        zones: [
+          {
+            target: ['packages/**'],
+            from: ['apps/**'],
+            message:
+              'Packages must not import from apps/ — packages are lower layers than applications (ADR-012).',
+          },
+          {
+            target: ['packages/mobile/**'],
+            from: ['packages/mobile-app/**'],
+            message:
+              'The mobile SDK must not depend on the Expo app shell — the dependency edge is one-way: mobile-app -> mobile (ADR-012).',
+          },
+        ],
+      },
+    ],
   },
   settings: {
     'import/resolver': {

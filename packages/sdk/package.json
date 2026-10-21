@@ -14,7 +14,7 @@
     "generate": "node ../../scripts/generate-sdk.js",
     "docs": "node scripts/generate-docs.js",
     "docs:typedoc": "typedoc --out ../../docs/api/sdk src/index.ts",
-    "audit": "npm audit --workspace=packages/sdk --audit-level=high"
+    "audit": "npm audit --audit-level=high"
   },
   "peerDependencies": {
     "axios": ">=1.7.4"

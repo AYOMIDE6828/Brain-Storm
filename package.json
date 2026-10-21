@@ -4,11 +4,14 @@
   "private": true,
   "description": "Brain-Storm - Blockchain Education Platform on Stellar",
   "workspaces": [
-    "packages/types",
-    "packages/sdk",
-    "apps/frontend",
     "apps/backend",
-    "packages/api"
+    "apps/frontend",
+    "packages/api",
+    "packages/app",
+    "packages/mobile",
+    "packages/mobile-app",
+    "packages/sdk",
+    "packages/types"
   ],
   "scripts": {
     "dev:frontend": "npm run dev --workspace=apps/frontend",
@@ -30,6 +33,7 @@
     "test:mutation:report": "stryker run --reporters html",
     "audit": "npm audit --audit-level=high",
     "audit:all": "npm audit --audit-level=high --workspaces --include-workspace-root",
+    "audit:packages": "npm run audit --workspaces --if-present",
     "lint:staged": "lint-staged",
     "prepare": "husky install"
   },
