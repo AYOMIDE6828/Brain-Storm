@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "audit": "npm audit --workspace=packages/mobile --audit-level=high"
+    "audit": "npm audit --audit-level=high"
   },
   "dependencies": {
     "expo-secure-store": "~14.0.1",
